@@ -9,11 +9,13 @@
 **Solution Implemented:**
 - Created VISION.md and WORKPLAN.md in admin/
 - Downloaded AAPL historical data (2015-01-01 to 2025-12-31) via `yfinance`
-- Cleaned AAPL data: checked for missing dates, nulls, and split/dividend adjustments
-
+- (Shivani) Cleaned AAPL data: checked for missing dates, nulls, and split/dividend adjustments
+- (Poorvi) Cleaned NVDA, MSFT data: checked for missing dates, nulls, and split/dividend adjustments
+- (Priyanka) Cleaned Amazon, Google data: checked for missing dates, nulls, and split/dividend adjustments
+  
 **Impact:** Project docs are in place and first stock data is ready for EDA. M1-T2 and partial M1-T4 complete.
 
-**Next Steps:** Download remaining 6 tickers (MSFT, GOOGL, AMZN, NVDA, ^GSPC, ^IXIC) and validate all before EDA.
+**Next Steps:** Download remaining 6 tickers (^GSPC, ^IXIC) and validate all before EDA.
 
 ---
 
