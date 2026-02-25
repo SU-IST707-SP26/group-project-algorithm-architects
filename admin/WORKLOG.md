@@ -2,7 +2,7 @@
 
 ---
 
-## 2026-02-24 — Data Acquisition & Project Documentation
+## 2026-02-24 — Data Acquisition & Project Documentation(Team)
 
 **Context:** First working session. Set up all project management documents and began data pipeline.
 
@@ -17,7 +17,7 @@
 
 ---
 
-## 2026-02-18 — Project Initialization & Documentation
+## 2026-02-18 — Project Initialization & Documentation(Team)
 
 **Context:** Project officially kicked off with proposal submission. Need to establish admin docs before beginning data work.
 
