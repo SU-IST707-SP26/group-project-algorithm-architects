@@ -1,20 +1,20 @@
 # WORKLOG.md
 
 ---
-## 2026-02-25 — Data Cleaning & Validation(Team)
+## 2026-02-25 — Data Cleaning & Validation (Team)
 
 **Context:** Continued data prep by adding ^GSPC and ^IXIC and standardizing CSV formats for EDA.
 
-**Solution Implemented**:
--(Poorvi) Downloaded and cleaned S&P 500 (^GSPC) and Nasdaq Composite (^IXIC) data by checking missing dates, nulls, and split/dividend adjustments.
--(Poorvi & Priyanka)standardized the date format across all CSVs (e.g., 25 → 2025) and removed extra/unwanted rows to keep all datasets consistent for analysis.
+**Solution Implemented:**
+- (Poorvi) Downloaded and cleaned S&P 500 (^GSPC) and Nasdaq Composite (^IXIC) data by checking missing dates, nulls, and split/dividend adjustments.
+- (Poorvi & Priyanka) Standardized the date format across all CSVs (e.g., 25 → 2025) and removed extra/unwanted rows to keep all datasets consistent for analysis.
 
 **Impact:** Market index datasets (^GSPC, ^IXIC) are now added and validated, and all CSVs have consistent date formats and cleaned rows—datasets are ready for EDA with fewer format-related issues.
 
-**Next Steps:** 
--Save and organize final cleaned files into the agreed folder
--Do a quick cross-check: same date range, no missing trading days, and consistent column names across all tickers.
--Begin EDA: plot price trends, compute daily returns, volatility, and correlations (stocks vs indices)
+**Next Steps:**
+- Save and organize final cleaned files into the agreed folder.
+- Do a quick cross-check: same date range, no missing trading days, and consistent column names across all tickers.
+- Begin EDA: plot price trends, compute daily returns, volatility, and correlations (stocks vs indices).
 
 ## 2026-02-24 — Data Acquisition & Project Documentation(Team)
 
