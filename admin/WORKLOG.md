@@ -1,8 +1,6 @@
 # WORKLOG.md
 ---
 ## 2026-03-06 — EDA, Data Pipeline & ARIMA Modeling (Team)
-<<<<<<< HEAD
-=======
 
 **Context:** Continued project development by performing exploratory data analysis on the cleaned tech stock datasets, implementing a preprocessing pipeline for feature engineering, and building a baseline ARIMA forecasting model.
 
@@ -21,7 +19,6 @@ EDA provided insights into stock price trends, volatility, and correlations amon
 - Complete ARIMA modeling for the **Apple (AAPL) dataset**, as the remaining datasets have already been trained and modeled.
 - Compare ARIMA forecasts across all stocks to analyze prediction performance.
 - Train additional machine learning models and integrate results into the portfolio optimization framework.
->>>>>>> cad5d84ed548ba9733bed07a47bf961a4a71a998
 
 **Context:** Continued project development by performing exploratory data analysis on the cleaned tech stock datasets, implementing a preprocessing pipeline for feature engineering, and building a baseline ARIMA forecasting model.
 
