@@ -1,5 +1,23 @@
 # WORKLOG.md
 ---
+## 2026-03-27 — Model Training 
+
+**Task:** Continued work on the stock prediction project by building and testing XGBoost models for Google and Apple using cleaned historical price data.
+
+**Solution Implemented:**
+- (Poorvi) Cleaned and prepared Google and Apple datasets by fixing formatting issues, converting columns properly, and organizing the data for modeling.
+- (Poorvi) Created important time-series features including lagged close prices, returns, moving averages, volatility, volume trends, and RSI.
+- (Poorvi) Defined the 7-day future return target and split the data into training, validation, and test sets based on time.
+- (Poorvi) Trained XGBoost models for both Google and Apple and evaluated their performance using MAE, RMSE, and directional accuracy.
+- (Poorvi) Converted predicted returns into Buy, Hold, and Avoid signals and compared the strategy results against buy-and-hold using a simple backtest.
+- (Poorvi) Reviewed feature importance and added interpretation to understand how useful the models are for investor decision-making.
+
+**Impact:** The Google and Apple models are now developed and evaluated from both forecasting and practical decision-making perspectives. This improves the project by showing not just prediction accuracy, but also how the predictions can support investor actions.
+
+**Next Steps:**
+- Compare the final performance of Google and Apple models.
+- Improve the models through feature refinement and parameter tuning.
+- Apply the same workflow to the other stocks in the project.
 ## 2026-03-06 — EDA, Data Pipeline & ARIMA Modeling (Team)
 
 **Context:** Continued project development by performing exploratory data analysis on the cleaned tech stock datasets, implementing a preprocessing pipeline for feature engineering, and building a baseline ARIMA forecasting model.
