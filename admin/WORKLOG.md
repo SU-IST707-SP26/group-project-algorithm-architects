@@ -5,12 +5,10 @@
 **Task:** Continued work on the stock prediction project by building and testing XGBoost models for Google and Apple using cleaned historical price data.
 
 **Solution Implemented:**
-- (Poorvi) Cleaned and prepared Google and Apple datasets by fixing formatting issues, converting columns properly, and organizing the data for modeling.
-- (Poorvi) Created important time-series features including lagged close prices, returns, moving averages, volatility, volume trends, and RSI.
-- (Poorvi) Defined the 7-day future return target and split the data into training, validation, and test sets based on time.
-- (Poorvi) Trained XGBoost models for both Google and Apple and evaluated their performance using MAE, RMSE, and directional accuracy.
-- (Poorvi) Converted predicted returns into Buy, Hold, and Avoid signals and compared the strategy results against buy-and-hold using a simple backtest.
-- (Poorvi) Reviewed feature importance and added interpretation to understand how useful the models are for investor decision-making.
+- **(Poorvi)** Cleaned and prepared Google and Apple datasets by fixing formatting issues, converting columns properly, and organizing the data for modeling.Created important time-series features including lagged close prices, returns, moving averages, volatility, volume trends, and RSI.Defined the 7-day future return target and split the data into training, validation, and test sets based on time.Trained XGBoost models for both Google and Apple and evaluated their performance using MAE, RMSE, and directional accuracy.Converted predicted returns into Buy, Hold, and Avoid signals and compared the strategy results against buy-and-hold using a simple backtest. Reviewed feature importance and added interpretation to understand how useful the models are for investor decision-making.
+
+
+- **(Priyanka)** Implemented the ARIMA model on Apple Inc. and Amazon.com, Inc. stock data using returns instead of raw prices.Performed parameter tuning (p,d,q) to improve model performance.Evaluated model performance using MAE, RMSE, and directional accuracy. Visualized actual vs predicted results to analyze model behavior and limitations. Identified that ARIMA predictions are smoother and do not fully capture market volatility. Developed a trading strategy using BUY/SELL signals based on model predictions. Implemented backtesting to compare strategy performance against buy-and-hold. Calculated cumulative returns and profit/loss for both strategies.
 
 **Impact:** The Google and Apple models are now developed and evaluated from both forecasting and practical decision-making perspectives. This improves the project by showing not just prediction accuracy, but also how the predictions can support investor actions.
 
