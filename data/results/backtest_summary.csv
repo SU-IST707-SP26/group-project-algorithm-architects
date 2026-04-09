@@ -1,0 +1,4 @@
+Model,Total Return (%),Annualized Return (%),Sharpe Ratio,Max Drawdown (%),Win Rate (%),Final Value ($),Profit/Loss ($),Weeks
+LSTM,63.91,26.58,1.13,-25.82,60.6,16390.78,6390.78,109.0
+Equal Weight,83.58,32.25,1.31,-24.06,58.4,18357.81,8357.81,113.0
+Oracle (perfect),637.88,150.86,3.97,-13.91,74.3,73788.14,63788.14,113.0
