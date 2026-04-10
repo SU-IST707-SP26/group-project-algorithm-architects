@@ -61,3 +61,38 @@
 - ✅ M1-T1 through M1-T3 marked complete based on proposal submission and repo setup
 - ⏳ M1-T4 set as current active task (data download and caching)
 
+### 2026-02-24
+
+✅ M1-T4 — Downloaded all 5 tickers via yfinance and saved to data/.
+⏳ M1-T5 — Validation in progress across team.
+
+### 2026-02-25
+
+✅ M1-T5 — Data validated: consistent date ranges, no missing trading days, column names standardized.
+✅ M1-T4 — Added ^GSPC and ^IXIC benchmark data (Poorvi).
+
+### 2026-03-06
+
+✅ M2-T1 through M2-T4 — EDA complete (Poorvi).
+✅ M3-T1 through M3-T7 — Preprocessing pipeline complete (Shivani). Output: train.csv, val.csv, test.csv, scaler.pkl.
+⏳ M4-T1 — Initial ARIMA fitted on raw prices instead of returns; diagnosed error, MAE in hundreds (Priyanka).
+🔄 M4-T1 — Fix: switch ARIMA target to pct_change(5) for weekly returns.
+
+### 2026-03-27
+
+✅ M5-T1 — XGBoost trained for Google with 15 features, directional accuracy evaluated (Poorvi).
+✅ M5-T2 — XGBoost trained for Apple using same pipeline (Poorvi).
+✅ M4-T1 — ARIMA corrected to use returns; trained for Apple (Priyanka).
+✅ M4-T2 — ARIMA trained for Amazon (Priyanka).
+
+### 2026-04-05
+
+✅ M6-T1 through M6-T4 — LSTM complete for all 5 stocks (Shivani).
+🔄 M6-T2 — Switched from regression to binary classification; regression produced flat predictions for all stocks.
+
+### 2026-04-09
+
+(Shivani) Reviewed all model outputs. Identified gap: ARIMA and XGBoost produce individual stock signals, not cross-stock ranking inputs. Need standardized output format.
+⏳ M4-T3, M4-T4 — ARIMA needs extension to remaining 3 stocks + output standardization (Priyanka).
+⏳ M5-T3, M5-T4 — XGBoost needs extension to remaining 3 stocks + output standardization (Poorvi).
+

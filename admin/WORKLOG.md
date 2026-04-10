@@ -1,16 +1,50 @@
 # WORKLOG.md
+
 ---
+
+## 2026-04-08 — Portfolio Backtest Implementation (Shivani)
+
+**Context:** After completing the LSTM classification model, built the backtesting framework to simulate portfolio performance using model predictions.
+
+**Work Completed:**
+- **(Shivani)** Implemented portfolio backtesting logic using LSTM probability outputs to rank stocks weekly and allocate portfolio weights based on rankings.
+- **(Shivani)** Simulated weekly rebalancing over the test period and computed cumulative portfolio returns.
+- **(Shivani)** Committed backtest code to GitHub.
+
+**Impact:** Backtesting framework is functional and produces portfolio return series from LSTM predictions. This serves as the foundation for the full multi-model comparison once ARIMA and XGBoost outputs are standardized.
+
+**Next Steps:** Extend backtester to accept inputs from all three models. Add benchmark comparisons (equal-weight, S&P 500, Nasdaq).
+
+---
+
+## 2026-04-06 — LSTM Classification Model Complete (Shivani)
+
+**Context:** Initial LSTM regression approach collapsed to flat near-zero predictions for all stocks — a well-documented issue in financial ML where the model learns that predicting zero minimizes MSE.
+
+**Problem Identified:** Regression LSTM predicted nearly identical values for all 5 stocks, making ranking impossible. The model was minimizing loss by predicting the mean return (~0) rather than learning directional patterns.
+
+**Solution Implemented:**
+- **(Shivani)** Switched from regression to binary classification (up vs down) with sigmoid output.
+- Used minimal architecture: LSTM(8 units) → Dense(1, sigmoid) to prevent overfitting on ~350 training samples per stock.
+- Used raw unscaled weekly returns as single input feature (4-week lookback window).
+- Trained individual models per stock in a loop — each stock gets its own model weights.
+- Probability scores (P(Up) = 0.0 to 1.0) serve as confidence levels for cross-stock ranking.
+- Saved per-stock metrics, overall ranking accuracy, top-1 and top-2 accuracy to `lstm_summary.txt`.
+- **(Shivani)** Committed LSTM model code to GitHub.
+
+**Impact:** LSTM modeling complete for all 5 stocks. Probability-based ranking produces meaningful differentiation between stocks, unlike the flat regression outputs. Model achieves ranking accuracy above random baseline (20%).
+
+**Next Steps:** Build ranking engine that consumes LSTM probability outputs alongside ARIMA and XGBoost predicted returns.
+
 ## 2026-03-27 — Model Training 
 
 **Task:** Continued work on the stock prediction project by building and testing XGBoost models for Google and Apple using cleaned historical price data.
 
 **Solution Implemented:**
-- (Poorvi) Cleaned and prepared Google and Apple datasets by fixing formatting issues, converting columns properly, and organizing the data for modeling.
-- (Poorvi) Created important time-series features including lagged close prices, returns, moving averages, volatility, volume trends, and RSI.
-- (Poorvi) Defined the 7-day future return target and split the data into training, validation, and test sets based on time.
-- (Poorvi) Trained XGBoost models for both Google and Apple and evaluated their performance using MAE, RMSE, and directional accuracy.
-- (Poorvi) Converted predicted returns into Buy, Hold, and Avoid signals and compared the strategy results against buy-and-hold using a simple backtest.
-- (Poorvi) Reviewed feature importance and added interpretation to understand how useful the models are for investor decision-making.
+- **(Poorvi)** Cleaned and prepared Google and Apple datasets by fixing formatting issues, converting columns properly, and organizing the data for modeling.Created important time-series features including lagged close prices, returns, moving averages, volatility, volume trends, and RSI.Defined the 7-day future return target and split the data into training, validation, and test sets based on time.Trained XGBoost models for both Google and Apple and evaluated their performance using MAE, RMSE, and directional accuracy.Converted predicted returns into Buy, Hold, and Avoid signals and compared the strategy results against buy-and-hold using a simple backtest. Reviewed feature importance and added interpretation to understand how useful the models are for investor decision-making.
+
+
+- **(Priyanka)** Implemented the ARIMA model on Apple Inc. and Amazon.com, Inc. stock data using returns instead of raw prices.Performed parameter tuning (p,d,q) to improve model performance.Evaluated model performance using MAE, RMSE, and directional accuracy. Visualized actual vs predicted results to analyze model behavior and limitations. Identified that ARIMA predictions are smoother and do not fully capture market volatility. Developed a trading strategy using BUY/SELL signals based on model predictions. Implemented backtesting to compare strategy performance against buy-and-hold. Calculated cumulative returns and profit/loss for both strategies.
 
 **Impact:** The Google and Apple models are now developed and evaluated from both forecasting and practical decision-making perspectives. This improves the project by showing not just prediction accuracy, but also how the predictions can support investor actions.
 

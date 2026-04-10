@@ -1,0 +1,16 @@
+LSTM Model Summary
+==================================================
+
+Per-Stock Metrics:
+           MAE    RMSE  Directional Accuracy  Test Samples
+Ticker                                                    
+AAPL    0.7062  0.9468                0.5429         105.0
+MSFT    0.5721  0.7591                0.5905         105.0
+GOOGL   0.7461  0.9700                0.4952         105.0
+AMZN    0.7428  0.9830                0.6190         105.0
+NVDA    1.1640  1.5557                0.5238         105.0
+
+Overall Ranking Accuracy: 20.0%
+Top-1 Accuracy (best stock): 33.3%
+
+Sequence Length: 8 weeks
