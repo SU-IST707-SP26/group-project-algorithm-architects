@@ -1,5 +1,19 @@
 # WORKLOG.md
+## 2026-04-11 — XGBoost Modeling and Combined Prediction File (Poorvi)
 
+**Context:** After completing XGBoost modeling for all five assigned stocks, standardized outputs and prepared a unified prediction file for ranking and evaluation.
+
+**Work Completed:**
+- **(Poorvi)** Completed the XGBoost pipeline for GOOGL, AAPL, MSFT, AMZN, and NVDA, including preprocessing, feature engineering, target creation, train/validation/test split, model training, prediction generation, evaluation, signal generation, backtesting, and feature importance.
+- **(Poorvi)** Standardized the Google and Apple XGBoost workflow to match the same structure used for Microsoft, Amazon, and NVIDIA.
+- **(Poorvi)** Combined all five stock outputs into a single file: `xgboost_predictions.csv`.
+- **(Poorvi)** Validated the combined prediction file by checking columns, stock coverage, row counts, and missing values.
+- **(Poorvi)** Calculated overall XGBoost MAE, RMSE, and directional accuracy across all five stocks.
+- **(Poorvi)** Calculated stock-wise MAE, RMSE, and directional accuracy for all five stocks.
+
+**Impact:** The XGBoost modeling work is complete for all five stocks, and the combined prediction file is ready to support ranking, comparison, and later portfolio evaluation.
+
+**Next Steps:** Create feature importance visualizations for XGBoost.
 ---
 
 ## 2026-04-08 — Portfolio Backtest Implementation (Shivani)
