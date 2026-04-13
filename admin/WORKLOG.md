@@ -1,4 +1,24 @@
 # WORKLOG.md
+## 2026-04-12 — Arima modeling with validation on MSFT, Nvidia, Google (Priyanka)
+
+**Context:** ARIMA-based time-series modeling pipeline to multiple stocks and evaluate its effectiveness in predicting returns and supporting investment decisions through backtesting.
+
+**Work Completed:**
+- **(Priyanka)** Implemented ARIMA models with walk-forward validation for Microsoft, NVIDIA, and Google stock data.
+Implemented a walk-forward ARIMA model to predict stock returns using time-series data.
+Performed model evaluation using MAE, RMSE, and directional accuracy metrics.
+Visualized actual vs predicted returns to analyze model performance and limitations.
+Developed a trading strategy (BUY/SELL signals) based on predicted returns.
+Conducted backtesting to simulate real investment performance.
+Calculated cumulative returns and profit/loss and compared results with a buy-and-hold strategy.
+Identified limitations of ARIMA in capturing volatility and sharp market movements.
+
+**Impact:** Identified that ARIMA captures general trends but fails to model volatility and sudden price movements, especially for high-volatility stocks like NVIDIA. Established a baseline performance benchmark for multiple stocks.
+Demonstrated the ability to translate predictions into actionable trading decisions and profit/loss evaluation, addressing stakeholder needs.
+
+**Next Steps:** Combine all stock into prediction system to select the best-performing stock dynamically.
+---
+
 ## 2026-04-11 — XGBoost Modeling and Combined Prediction File (Poorvi)
 
 **Context:** After completing XGBoost modeling for all five assigned stocks, standardized outputs and prepared a unified prediction file for ranking and evaluation.
@@ -10,6 +30,8 @@
 - **(Poorvi)** Validated the combined prediction file by checking columns, stock coverage, row counts, and missing values.
 - **(Poorvi)** Calculated overall XGBoost MAE, RMSE, and directional accuracy across all five stocks.
 - **(Poorvi)** Calculated stock-wise MAE, RMSE, and directional accuracy for all five stocks.
+
+
 
 **Impact:** The XGBoost modeling work is complete for all five stocks, and the combined prediction file is ready to support ranking, comparison, and later portfolio evaluation.
 
