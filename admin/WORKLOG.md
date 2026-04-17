@@ -1,5 +1,26 @@
 # WORKLOG.md
+## 2026-04-17— XGBoost Modeling, Evaluation, and Ranking Support (Poorvi)
 
+**Context:** Completed end-to-end XGBoost modeling for all five stocks, generated a unified prediction dataset, and extended the model outputs to support ranking-based investment decisions.
+
+**Work Completed:**
+- **(Poorvi)** Built and executed the XGBoost pipeline for GOOGL, AAPL, MSFT, AMZN, and NVDA, including preprocessing, feature engineering, target creation, time-based train/test split, model training, and prediction generation.
+- **(Poorvi)** Standardized the XGBoost workflow across all five stocks to ensure consistency in feature engineering, modeling, and output structure.
+- **(Poorvi)** Combined predictions from all five stocks into a unified file: `xgboost_predictions.csv`.
+- **(Poorvi)** Validated the combined dataset by checking column structure, stock coverage, missing values, and date ranges.
+- **(Poorvi)** Evaluated model performance using MAE, RMSE, and directional accuracy at both overall and stock-wise levels.
+- **(Poorvi)** Structured prediction outputs to support ranking-based investment decisions by enabling comparison of predicted returns across all stocks.
+- **(Poorvi)** Developed ranking logic to identify top-performing stocks based on predicted returns for each time period.
+- **(Poorvi)** Generated feature importance visualizations for all five XGBoost models to understand key predictive features.
+- **(Poorvi)** Created actual vs predicted plots for all five stocks to visually assess model performance and trend alignment.
+- **(Poorvi)** Interpreted model outputs to support investment recommendations based on predicted return rankings.
+
+**Impact:**  
+The XGBoost pipeline is fully complete with validated predictions, performance evaluation, and interpretability. The outputs are structured to support stock ranking and investment decision-making by identifying top-performing stocks based on predicted returns.
+
+**Next Steps:**  
+- Integrate XGBoost outputs into ranking engine and portfolio allocation framework  
+- Compare XGBoost results with ARIMA and LSTM models  
 ## 2026-04-15 — Enhanced LSTM with 22 Features (Shivani)
 
 **Context:** Original LSTM used only 1 feature (weekly return) and produced near-static predictions. Upgraded to rich feature set and deeper architecture to capture more market dynamics.
