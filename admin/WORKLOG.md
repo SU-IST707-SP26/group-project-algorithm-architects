@@ -1,4 +1,73 @@
 # WORKLOG.md
+
+## 2026-04-15 — Enhanced LSTM with 22 Features (Shivani)
+
+**Context:** Original LSTM used only 1 feature (weekly return) and produced near-static predictions. Upgraded to rich feature set and deeper architecture to capture more market dynamics.
+
+**Work Completed:**
+- **(Shivani)** Enhanced LSTM from single-feature to 22 features including multi-horizon returns (1/2/4/8 week), RSI-14, MACD histogram, Bollinger Bands (%B and width), ATR, rolling volatility (4w/8w), volume ratios, price-to-SMA, and cross-sectional rank/z-score features.
+Upgraded architecture from LSTM(8) → Dense(1) to LSTM(64) → Dropout(0.2) → LSTM(32) → Dropout(0.2) → Dense(16, ReLU) → BatchNorm → Dense(1, sigmoid).
+Added ReduceLROnPlateau callback to halve learning rate when validation loss plateaus.
+Observed that enhanced model produces more dynamic predictions for volatile stocks (AAPL std=0.115, NVDA std=0.101) while GOOGL and AMZN remained near-static despite richer features.
+Documented findings in updated Section 16 interpretation.
+
+**Impact:** Feature engineering improved prediction dynamics for 3 out of 5 stocks. NVDA achieved 61.5% directional accuracy in best run, exceeding the 60% project target. Identified that GOOGL and AMZN weekly movements are driven by events not captured in technical indicators.
+
+**Next Steps:** Build Random Forest model with expanded stock universe. Finalize report and presentation.
+
+---
+
+## 2026-04-14 — LSTM vs XGBoost Portfolio Comparison (Shivani)
+
+**Context:** Both LSTM and XGBoost models had completed predictions for all 5 stocks. Needed a unified comparison against benchmarks to evaluate portfolio-level performance.
+
+**Work Completed:**
+- **(Shivani)** Built comparison notebook combining LSTM and XGBoost portfolio returns with equal-weight, S&P 500, Nasdaq, and momentum benchmarks.
+Computed Sharpe ratio, Sortino ratio, max drawdown, cumulative returns, and ranking accuracy for each strategy.
+Found both ML portfolios outperformed S&P 500 by 23 percentage points and Nasdaq by 16 points with Sharpe ratios above 1.0.
+Identified that ML-driven ranking provided no incremental value over equal-weight allocation within the 5-stock correlated universe.
+
+**Impact:** Complete portfolio performance comparison showing stock selection drove returns while ML ranking did not add value over equal-weight. Provides the core results for the final report.
+
+**Next Steps:** Enhance LSTM with richer features to improve ranking dynamics.
+
+---
+
+## 2026-04-12 — S&P 500 Benchmark Data (Shivani)
+
+**Context:** Portfolio backtest needed market benchmarks for meaningful performance comparison.
+
+**Work Completed:**
+- **(Shivani)** Downloaded S&P 500 (GSPC) historical data via yfinance and saved to data directory.
+Validated date range alignment with existing stock data (2015–2026).
+
+**Impact:** S&P 500 benchmark data available for portfolio comparison in backtesting framework.
+
+**Next Steps:** Integrate benchmark data into comparison notebook.
+
+---
+
+
+## 2026-04-12 — Arima modeling with validation on MSFT, Nvidia, Google (Priyanka)
+
+**Context:** ARIMA-based time-series modeling pipeline to multiple stocks and evaluate its effectiveness in predicting returns and supporting investment decisions through backtesting.
+
+**Work Completed:**
+- **(Priyanka)** Implemented ARIMA models with walk-forward validation for Microsoft, NVIDIA, and Google stock data.
+Implemented a walk-forward ARIMA model to predict stock returns using time-series data.
+Performed model evaluation using MAE, RMSE, and directional accuracy metrics.
+Visualized actual vs predicted returns to analyze model performance and limitations.
+Developed a trading strategy (BUY/SELL signals) based on predicted returns.
+Conducted backtesting to simulate real investment performance.
+Calculated cumulative returns and profit/loss and compared results with a buy-and-hold strategy.
+Identified limitations of ARIMA in capturing volatility and sharp market movements.
+
+**Impact:** Identified that ARIMA captures general trends but fails to model volatility and sudden price movements, especially for high-volatility stocks like NVIDIA. Established a baseline performance benchmark for multiple stocks.
+Demonstrated the ability to translate predictions into actionable trading decisions and profit/loss evaluation, addressing stakeholder needs.
+
+**Next Steps:** Combine all stock into prediction system to select the best-performing stock dynamically.
+---
+
 ## 2026-04-11 — XGBoost Modeling and Combined Prediction File (Poorvi)
 
 **Context:** After completing XGBoost modeling for all five assigned stocks, standardized outputs and prepared a unified prediction file for ranking and evaluation.
@@ -11,10 +80,25 @@
 - **(Poorvi)** Calculated overall XGBoost MAE, RMSE, and directional accuracy across all five stocks.
 - **(Poorvi)** Calculated stock-wise MAE, RMSE, and directional accuracy for all five stocks.
 
+
+
 **Impact:** The XGBoost modeling work is complete for all five stocks, and the combined prediction file is ready to support ranking, comparison, and later portfolio evaluation.
 
 **Next Steps:** Create feature importance visualizations for XGBoost.
 ---
+
+## 2026-04-09 — Nasdaq and S&P 500 Benchmark Data (Shivani)
+
+**Context:** Benchmark indices needed for portfolio performance evaluation as specified in the project proposal.
+
+**Work Completed:**
+- **(Shivani)** Downloaded Nasdaq Composite (IXIC) and S&P 500 data via yfinance.
+Added both CSV files to the data directory for portfolio benchmarking.
+
+**Impact:** Both market index benchmarks are now available for the backtesting pipeline.
+
+**Next Steps:** Download GSPC separately and build comparison framework.
+
 
 ## 2026-04-08 — Portfolio Backtest Implementation (Shivani)
 
