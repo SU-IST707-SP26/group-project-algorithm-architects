@@ -2,6 +2,7 @@
 ## 2026-04-17— XGBoost Modeling, Evaluation, and Ranking Support (Poorvi)
 
 **Context:** Completed end-to-end XGBoost modeling for all five stocks, generated a unified prediction dataset, and extended the model outputs to support ranking-based investment decisions.
+Focused on improving ARIMA-based stock prediction and aligning the model with project goals of ranking and investment decision-making.
 
 **Work Completed:**
 - **(Poorvi)** Built and executed the XGBoost pipeline for GOOGL, AAPL, MSFT, AMZN, and NVDA, including preprocessing, feature engineering, target creation, time-based train/test split, model training, and prediction generation.
@@ -15,12 +16,24 @@
 - **(Poorvi)** Created actual vs predicted plots for all five stocks to visually assess model performance and trend alignment.
 - **(Poorvi)** Interpreted model outputs to support investment recommendations based on predicted return rankings.
 
+- **(Priyanka)** Implemented ARIMAX model with feature engineering (lag, moving averages, volatility) across multiple stocks including Apple, Google, Microsoft, and NVIDIA. Converted data to weekly frequency to reduce noise and improve model stability. ⁠Applied walk-forward validation for realistic time-series forecasting. ⁠Generated predictions for each stock and combined them into a unified dataframe for multi-stock analysis. Built a ranking system to select the best-performing stock at each time step. ⁠Implemented backtesting strategy to simulate investment decisions and portfolio growth. ⁠Calculated evaluation metrics including MAE, RMSE, and directional accuracy across all stocks. ⁠Created ranking accuracy metric and visualization to measure model effectiveness in stock selection. Debugged and resolved data alignment issues between prediction and actual datasets.
+
+
 **Impact:**  
 The XGBoost pipeline is fully complete with validated predictions, performance evaluation, and interpretability. The outputs are structured to support stock ranking and investment decision-making by identifying top-performing stocks based on predicted returns.
 
+Successfully transformed ARIMA from a single-stock model into a multi-stock decision-making system. Established a baseline performance benchmark and identified limitations in handling volatility and ranking accuracy. ⁠Improved model evaluation by incorporating both statistical metrics and financial performance.
+
+
 **Next Steps:**  
 - Integrate XGBoost outputs into ranking engine and portfolio allocation framework  
-- Compare XGBoost results with ARIMA and LSTM models  
+- Compare XGBoost results with ARIMA and LSTM models .
+- Improve ranking accuracy (>60%) using advanced models such as XGBoost and LSTM.
+- ⁠Enhance trading strategy with confidence thresholds.
+- ⁠Compare ARIMA performance with other models for final evaluation.
+
+---
+  
 ## 2026-04-15 — Enhanced LSTM with 22 Features (Shivani)
 
 **Context:** Original LSTM used only 1 feature (weekly return) and produced near-static predictions. Upgraded to rich feature set and deeper architecture to capture more market dynamics.
