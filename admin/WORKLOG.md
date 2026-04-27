@@ -41,6 +41,9 @@ The Elastic Net Logistic model provides an interpretable baseline for stock dire
 Improved model capability to capture non-linear market patterns compared to ARIMA.
 Enabled better stock selection and ranking performance, aligning with stakeholder needs.
 Provided a stronger evaluation framework using F1 score and ranking accuracy, directly addressing professor feedback.
+
+
+
 ---
 
 
