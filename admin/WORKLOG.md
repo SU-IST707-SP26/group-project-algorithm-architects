@@ -1,4 +1,52 @@
 # WORKLOG.md
+---
+## 2026-04-26 — Elastic Net Logistic Modeling, Evaluation, Visualization, and F1 Score Analysis (Poorvi)
+
+**Context:**  
+Completed end-to-end Elastic Net Logistic Classification modeling for multi-stock return direction prediction. Focused on building an interpretable baseline model, generating probability-based predictions, evaluating classification performance, and supporting ranking-based investment decision-making across all stocks.
+
+Implementing a gradient boosting model aligned with project goals of stock ranking and decision-making. Focused on improving predictive performance beyond ARIMA.
+
+
+**Work Completed:**
+- **(Poorvi)** Built and executed the Elastic Net Logistic Classification pipeline across 15 stocks, including preprocessing, feature engineering, target creation, and time-based train/test split.
+- **(Poorvi)** Standardized the modeling workflow across all stocks to ensure consistency in feature engineering, prediction outputs, and evaluation.
+- **(Poorvi)** Generated predicted probabilities for positive 7-day returns and structured outputs for ranking-based analysis.
+- **(Poorvi)** Implemented classification logic:
+  - Positive return = 1
+  - Non-positive return = 0
+- **(Poorvi)** Evaluated model performance using accuracy, precision, recall, F1 score, confusion matrix, and classification behavior analysis.
+- **(Poorvi)** Added F1 score analysis to better evaluate the balance between precision and recall for positive-return prediction.
+- **(Poorvi)** Used F1 score to understand how well the model identifies positive-return opportunities instead of relying only on accuracy.
+- **(Poorvi)** Identified model bias toward positive predictions through confusion matrix, recall behavior, and probability distribution analysis.
+- **(Poorvi)** Developed ranking logic to identify top-performing stocks based on predicted probabilities.
+- **(Poorvi)** Created visualization suite including:
+  - Target direction distribution
+  - Confusion matrix
+  - Accuracy, precision, recall, and F1 score summary
+  - Coefficient importance plots
+  - Top-ranked stock frequency bar chart
+  - Predicted probability trends
+  - Subplot-based company comparison
+  - Violin plot for cross-company probability comparison
+- **(Poorvi)** Improved visualization clarity using color palettes, smoothing techniques, and subplot layouts for better interpretability.
+- **(Poorvi)** Interpreted model outputs to explain prediction patterns, model bias, F1 score results, and limitations in stock differentiation.
+
+- **(Priyanka)** Implemented XGBoost regression model using engineered features with lagged returns, moving averages, volatility. Defined 7-day return target to better align with ranking and investment decisions.Performed time-based train/validation/test split for realistic forecasting. Generated predictions and converted them into classification labels (BUY/SELL).Computed evaluation metrics including Accuracy and F1 Score for directional prediction. Built multi-stock prediction framework and calculated ranking accuracy across all stocks. Extracted dataset statistics including shape rows/columns and date range. Verified model performance using both statistical metrics and decision-based evaluation ranking.
+
+
+**Impact:**  
+The Elastic Net Logistic model provides an interpretable baseline for stock direction prediction and supports probability-based ranking of investment opportunities. Adding F1 score strengthened the evaluation because it helped measure how well the model balances precision and recall when identifying positive-return stocks. While the model is useful for understanding feature influence, classification behavior, and general probability trends, it also highlights limitations in capturing complex market behavior. This supports the need to compare Elastic Net Logistic Regression with more advanced models like XGBoost for stronger predictive performance.
+
+Improved model capability to capture non-linear market patterns compared to ARIMA.
+Enabled better stock selection and ranking performance, aligning with stakeholder needs.
+Provided a stronger evaluation framework using F1 score and ranking accuracy, directly addressing professor feedback.
+
+
+
+---
+
+
 ## 2026-04-17— XGBoost Modeling, Evaluation, and Ranking Support (Poorvi)
 
 **Context:** Completed end-to-end XGBoost modeling for all five stocks, generated a unified prediction dataset, and extended the model outputs to support ranking-based investment decisions.
