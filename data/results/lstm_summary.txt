@@ -8,14 +8,14 @@ Optimizer: Adam (lr=0.001) | Loss: Binary Crossentropy
 Batch Size: 32 | Max Epochs: 200 | Patience: 20
 
 Per-Stock Metrics:
-        Directional Accuracy  Prob Std  Preds Up  Preds Down  Stopped Epoch  Test Samples
-Ticker                                                                                   
-AAPL                  0.5046    0.0474     104.0         5.0           39.0         109.0
-MSFT                  0.4954    0.0165      99.0        10.0           21.0         109.0
-GOOGL                 0.5505    0.0191      93.0        16.0           21.0         109.0
-AMZN                  0.5046    0.0127     101.0         8.0           23.0         109.0
-NVDA                  0.5505    0.0207      86.0        23.0           21.0         109.0
+        Directional Accuracy  Prob Std  Preds Up  Preds Down  Stopped Epoch  Test Samples  F1 Score
+Ticker                                                                                             
+AAPL                  0.5138    0.1099      91.0        18.0           50.0         109.0    0.6443
+MSFT                  0.4679    0.0144       8.0       101.0           21.0         109.0    0.1212
+GOOGL                 0.5138    0.0167      57.0        52.0           21.0         109.0    0.5691
+AMZN                  0.5138    0.0177     106.0         3.0           23.0         109.0    0.6748
+NVDA                  0.5872    0.0404     102.0         7.0           30.0         109.0    0.7337
 
-Overall Ranking Accuracy: 16.7% (random: 20%)
-Top-1 Accuracy: 22.9% (random: 20%)
-Top-2 Accuracy: 45.0% (random: 40%)
+Overall Ranking Accuracy: 19.4% (random: 20%)
+Top-1 Accuracy: 27.5% (random: 20%)
+Top-2 Accuracy: 50.5% (random: 40%)
