@@ -31,7 +31,9 @@ Professional tools used by institutional quants are proprietary and completely i
 We chose three complementary model families to capture different aspects of return predictability:
 
 **ARIMA/ARIMAX** is the classical statistical baseline for time series. It models autocorrelation in returns and, with exogenous variables (lagged features), can capture short-term momentum. Its weakness is the assumption of stationarity and linearity, which may miss complex interactions.
+
 **Gradient**
+
 **XGBoost** is a gradient-boosted decision tree model that works well with structured tabular data. It was used in this project as a regression model to predict the 7-day future return for 15 stocks across technology, finance, healthcare, energy, and consumer/industrial sectors. XGBoost was selected because it can capture nonlinear relationships between financial indicators such as lagged returns, moving averages, volatility, volume changes, RSI, and broader market index movement. This makes it useful for stock prediction, where the relationship between past behavior and future return is rarely perfectly linear.
 **Elastic Net Logistic Regression** was used as a classification model to predict whether a stock’s 7-day future return would be positive or negative. Elastic Net combines L1 and L2 regularization, which helps reduce overfitting and handles correlated financial features better than standard logistic regression. This was useful because many technical indicators, such as moving averages, lagged returns, volatility, and volume-based features, are related to each other. Elastic Net also provides a simpler and more interpretable model compared with tree-based or deep learning models.
 **LSTM** 
