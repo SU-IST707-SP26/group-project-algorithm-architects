@@ -32,8 +32,8 @@ We chose three complementary model families to capture different aspects of retu
 
 **ARIMA/ARIMAX** is the classical statistical baseline for time series. It models autocorrelation in returns and, with exogenous variables (lagged features), can capture short-term momentum. Its weakness is the assumption of stationarity and linearity, which may miss complex interactions.
 **Gradient**
-**XGBoost** 
-**Elastic Net Logistic Regression** 
+**XGBoost** is a gradient-boosted decision tree model that works well with structured tabular data. It was used in this project as a regression model to predict the 7-day future return for 15 stocks across technology, finance, healthcare, energy, and consumer/industrial sectors. XGBoost was selected because it can capture nonlinear relationships between financial indicators such as lagged returns, moving averages, volatility, volume changes, RSI, and broader market index movement. This makes it useful for stock prediction, where the relationship between past behavior and future return is rarely perfectly linear.
+**Elastic Net Logistic Regression** was used as a classification model to predict whether a stock’s 7-day future return would be positive or negative. Elastic Net combines L1 and L2 regularization, which helps reduce overfitting and handles correlated financial features better than standard logistic regression. This was useful because many technical indicators, such as moving averages, lagged returns, volatility, and volume-based features, are related to each other. Elastic Net also provides a simpler and more interpretable model compared with tree-based or deep learning models.
 **LSTM** 
 **Random Forest**
 
@@ -124,22 +124,46 @@ The walk-forward ARIMAX approach on AAPL produced:
 
 Directional accuracy for ARIMA is typically lower than XGBoost and LSTM because ARIMA assumes linearity. The walk-forward approach ensures no lookahead bias, at the cost of significant computation (re-fitting at each test step).
 
+### XGBoost Results
+
+XGBoost was evaluated as a regression model for predicting 7-day future returns across all 15 stocks. The model produced numeric predicted returns for each stock and each test date.
+
+The main regression metrics used were MAE and RMSE. MAE measured the average absolute prediction error, while RMSE gave more weight to larger prediction errors. In addition to regression metrics, the predicted returns were converted into positive or negative return directions. This allowed the model to be evaluated using directional accuracy, precision, recall, and F1 score.
+
+The XGBoost predictions were also used for stock ranking. For each date, all 15 stocks were ranked from highest predicted return to lowest predicted return. The top-ranked stock was selected as the model’s recommendation for that period. A portfolio simulation was then performed using the top-ranked selections to evaluate how the strategy performed over time.
+
+Overall, XGBoost was useful because it supported both prediction and ranking. It did not only predict whether a stock may go up or down, but also helped compare all stocks in the same week and identify the strongest predicted opportunity.
+
+### Elastic Net Logistic Regression Results
+
+Elastic Net Logistic Regression was evaluated as a classification model. Instead of predicting the exact future return, it predicted whether the future 7-day return would be positive or negative.
+
+The model was evaluated using accuracy, precision, recall, F1 score, and the confusion matrix. Accuracy measured the overall percentage of correct classifications. Precision showed how many predicted positive-return cases were actually positive. Recall showed how many actual positive-return cases the model successfully identified. F1 score provided a balance between precision and recall.
+
+This model was useful because it gave a direct buy/avoid type signal. Compared with XGBoost, Elastic Net Logistic Regression was simpler and easier to interpret. However, because it is a linear model, it may not capture complex nonlinear market relationships as strongly as XGBoost.
+
 ### Summary Comparison
 
 | Model | Stocks | Target | Primary Metric | Simulation |
 |-------|--------|--------|----------------|------------|
-| ARIMA (walk-forward) | 15 | Weekly return (regression) | MAE + directional accuracy | BUY/SELL backtesting |
-
+| ARIMA / ARIMAX | 15 | Weekly return regression | MAE + directional accuracy | BUY/SELL backtesting |
+| XGBoost | 15 | 7-day future return regression | MAE, RMSE, directional accuracy | Weekly ranking + top-stock portfolio |
+| Elastic Net Logistic Regression | 15 | Positive vs. negative return classification | Accuracy, precision, recall, F1 score | BUY/AVOID signal evaluation |
+| LSTM | 15 | Positive vs. negative return classification | Accuracy, precision, recall, F1 score | Classification-based signal evaluation |
 
 ---
 
 ## Discussion
 
 ### Were the Goals Achieved?
+The project goal was achieved because the system moved beyond single-stock prediction and created a practical stock ranking and decision-support framework. XGBoost helped generate predicted returns for all 15 stocks, which made it possible to rank stocks from strongest to weakest opportunity each week. Elastic Net Logistic Regression supported the classification side by producing positive or negative return signals.
 
+Together, these models helped answer the stakeholder’s main question: which stock should be considered for investment, and which stocks should be avoided?
 
 ### Connection to Stakeholder Need
+For a retail investor, the most useful output is not just a model score. The investor needs a simple and actionable result. XGBoost supports this need by ranking stocks based on predicted return, while Elastic Net Logistic Regression supports it by giving a positive or negative return signal.
 
+This makes the system practical because the final output can be interpreted as which stock is ranked highest, whether the model gives a buy or avoid signal, what return the model expects, and how the strategy performs compared with simple baselines.
 
 ---
 
@@ -148,11 +172,17 @@ Directional accuracy for ARIMA is typically lower than XGBoost and LSTM because 
 
 **ARIMA scalability.** Walk-forward ARIMAX requires refitting at every test step, making it computationally prohibitive for large universes. The 15-stock ARIMA notebook is compute-intensive and was trained with limited hyperparameter tuning.
 
+**XGBoost interpretability.** XGBoost can capture nonlinear relationships, but it is less interpretable than simpler models. Feature importance helps identify which variables influenced the model, but it does not fully explain every individual prediction.
 
+**Elastic Net linearity.** Elastic Net Logistic Regression is easier to interpret, but it assumes a mostly linear relationship between the input features and the probability of a positive return. Stock market behavior can be more complex than this.
+
+**Market unpredictability.** Both models rely mainly on historical price, volume, and market-based features. Sudden news events, earnings results, macroeconomic changes, and unexpected market shocks are not fully captured in the dataset.
 ---
 
 ## Future Work
+Future improvements can include stronger hyperparameter tuning for XGBoost, additional feature selection for Elastic Net, and the use of more external signals such as earnings dates, analyst sentiment, macroeconomic indicators, and news sentiment. Another improvement would be to combine ARIMA, XGBoost, Elastic Net, and LSTM into an ensemble system so that each model contributes to the final stock ranking or signal.
 
+The portfolio simulation can also be expanded by including transaction costs, risk-adjusted returns, stop-loss rules, and better position sizing instead of selecting only the top-ranked stock each week.
 
 ---
 
