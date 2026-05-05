@@ -1,5 +1,53 @@
 # WORKLOG.md
+
+## 2026-05-05 — LSTM Sector-Based 3-Class Improvements and Final Report Submission (Shivani)
+
+**Context:**
+Incorporated professor feedback from the final presentation to improve the LSTM model and finalize the project report for submission.
+
+**Work Completed:**
+- **(Shivani)** Upgraded LSTM from binary classification to a **3-class classifier** (Down / Neutral / Up) using a ±1% threshold on weekly returns, per professor feedback that near-zero moves should not be treated as meaningful signals.
+- **(Shivani)** Implemented **sector-based training** — one LSTM model per sector (Tech, Finance, Healthcare, Energy) — to capture shared dynamics within each sector rather than training one model per stock.
+- **(Shivani)** Fixed critical bug where global train/test split on pooled sector data excluded most stocks from test results. Corrected by splitting per stock first (80/20 chronological), then pooling by sector — ensuring all 15 stocks appear in both train and test.
+- **(Shivani)** Added **balanced class weights** to prevent model from exploiting the Up-majority bias in bull-market training data (model was previously predicting Up for nearly all samples).
+- **(Shivani)** Reduced LSTM size from 32 to 16 units and added **L2 regularization** (0.001) on LSTM and Dense layers to fix overfitting observed in loss curves.
+- **(Shivani)** Reduced EarlyStopping patience from 10 to 5 to stop training earlier before validation loss climbs.
+- **(Shivani)** Verified all 15 stocks appear in results with class distribution plots confirming model predicts all 3 classes.
+- **(Shivani)** Saved per-stock predictions with class probabilities to `lstm_3class_predictions.csv`.
+- **(Shivani)** Finalized and submitted `submission.ipynb` — complete project report covering all models, stakeholder framing, results, limitations, future work, and supporting notebook index with `work/` paths.
+
+**Results:**
+- All 15 stocks beat the 3-class random baseline of 33%
+- Best performers: TSLA (46.3%), BA (43.6%), NVDA (42.3%)
+- Sector differences confirmed: Tech momentum stocks (TSLA, NVDA) outperform stable tech (AAPL, GOOGL)
+
+**Impact:**
+LSTM model addresses all professor feedback: 3-class target, sector grouping, class balance fix, all 15 stocks reported. Final report submitted meeting all rubric requirements.
+
 ---
+
+
+## 2026-04-27 — LSTM Extended to All 15 Stocks (Shivani)
+
+**Context:**
+Extended the existing LSTM model from 5 tech stocks to all 15 stocks in the expanded universe.
+
+**Work Completed:**
+- **(Shivani)** Updated LSTM pipeline to load and process all 15 stock CSVs with encoding handling (UTF-8 / latin1 fallback).
+- **(Shivani)** Trained individual LSTM models per stock using binary classification (up vs. down) with probability outputs for ranking.
+- **(Shivani)** Generated per-stock directional accuracy, precision, recall, and F1 scores for all 15 stocks.
+- **(Shivani)** Saved combined predictions and metrics to CSV for use in portfolio simulation and ranking comparison.
+- **(Shivani)** Committed `LSTM Model Improved.ipynb` with latest changes to GitHub.
+
+**Impact:**
+LSTM predictions now available for all 15 stocks, enabling full cross-model comparison across the complete stock universe.
+
+**Next Steps:**
+Incorporate professor presentation feedback — implement 3-class target and sector-based training.
+
+---
+
+
 ## 2026-04-26 — Elastic Net Logistic Modeling, Evaluation, Visualization, and F1 Score Analysis (Poorvi)
 
 **Context:**  
@@ -45,6 +93,26 @@ Provided a stronger evaluation framework using F1 score and ranking accuracy, di
 
 
 ---
+
+## 2026-04-24 — Expanded Stock Universe and Random Forest Model (Shivani)
+
+**Context:**
+Extended the project from 5 tech stocks to 15 stocks across multiple sectors, and added a Random Forest model as an ensemble baseline per project scope expansion.
+
+**Work Completed:**
+- **(Shivani)** Expanded the stock universe from 5 to 15 stocks across five sectors: Technology (AAPL, MSFT, GOOGL, AMZN, NVDA, META, TSLA), Finance (JPM, GS), Healthcare (JNJ, PFE), Energy (XOM, CVX), and Consumer/Industrial (WMT, BA).
+- **(Shivani)** Downloaded and validated new CSV datasets for all 10 additional stocks via `yfinance`. Confirmed date range alignment (2015–2026) and zero missing trading days across all new stocks.
+- **(Shivani)** Built `Random_Forest.ipynb` — implemented Random Forest as a binary directional classifier (positive vs. negative 7-day return) using the same engineered feature set as XGBoost.
+- **(Shivani)** Applied `TimeSeriesSplit` (5-fold) for cross-validation to respect temporal order.
+- **(Shivani)** Evaluated Random Forest using accuracy, precision, recall, F1 score, confusion matrix, and feature importance across all 15 stocks.
+- **(Shivani)** Committed new datasets and Random Forest notebook to GitHub.
+
+**Impact:**
+Project now covers a diversified 15-stock universe enabling cross-sector comparison. Random Forest provides a strong ensemble baseline for comparison against LSTM, XGBoost, and Elastic Net.
+
+**Next Steps:**
+Extend LSTM model to all 15 stocks and incorporate professor feedback on model improvements.
+
 
 
 ## 2026-04-17— XGBoost Modeling, Evaluation, and Ranking Support (Poorvi)
