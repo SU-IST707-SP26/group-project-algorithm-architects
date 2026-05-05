@@ -71,22 +71,6 @@ No existing free tool ranks multiple stocks simultaneously by predicted return, 
 - NVDA shows the highest annualized volatility (~45%) and the highest average weekly return over the study period; WMT and JNJ show the lowest volatility
 - Class balance (% of weeks with positive return) ranges from ~51% (BA) to ~58% (NVDA), confirming that a trivial "always predict up" baseline would score near 50–55% directional accuracy
 
-### Methods
-
-#### Preprocessing and Feature Engineering
-
-All data was loaded from CSV files, date columns converted to datetime, and price/volume columns cleaned of comma-formatting. Daily data was resampled to weekly frequency using Friday closing prices to reduce noise.
-
-The following feature families were constructed for each stock:
-
-
-
-For ARIMA, features were limited to lagged returns, moving averages, and volatility, which serve as exogenous variables in SARIMAX.
-
-#### Target Variable
-
-
-#### Train/Validation/Test Split
 
 
 
@@ -97,13 +81,106 @@ For ARIMA, features were limited to lagged returns, moving averages, and volatil
 
 #### Important Modeling Decisions and Issues Addressed
 
+## Methods
 
-#### Supporting Files
+### Preprocessing and Feature Engineering
 
-| Notebook | Purpose |
+All data was loaded from CSV files, date columns were converted to datetime format, and price/volume columns were cleaned of comma-formatting. Daily stock data was resampled to weekly frequency using Friday closing prices to reduce short-term noise.
+
+The following feature families were constructed for each stock:
+
+- **Lagged return features** to capture recent stock movement
+- **Moving averages** to represent short-term and long-term price trends
+- **Rolling volatility** to measure recent price risk and fluctuation
+- **Volume-based features** to capture changes in trading activity
+- **RSI and momentum indicators** to identify overbought/oversold behavior and recent trend direction
+- **Market index features** from the S&P 500 and Nasdaq to include broader market movement
+
+For **ARIMA/ARIMAX**, features were limited to lagged returns, moving averages, and volatility, which served as exogenous variables in SARIMAX.
+
+For **XGBoost**, the engineered features were used as input variables to predict the numeric 7-day future return for each stock. XGBoost was able to use these features to capture nonlinear relationships between past stock behavior and future returns.
+
+For **Elastic Net Logistic Regression**, similar engineered features were used, but the target was converted into a binary classification label. Since Elastic Net is a regularized linear model, using consistent and relevant features helped reduce overfitting and handle correlated indicators such as moving averages, lagged returns, volatility, and volume-based features.
+
+### Target Variable
+
+The main target variable was the **7-day future return** for each stock. This was calculated by comparing the current stock price with the stock price seven trading days ahead.
+
+For **ARIMA/ARIMAX** and **XGBoost**, the target was treated as a regression problem because both models predicted the numeric future return.
+
+For **Elastic Net Logistic Regression**, the 7-day future return was converted into a binary classification target:
+
+- `1` = positive 7-day future return
+- `0` = negative or zero 7-day future return
+
+This allowed Elastic Net Logistic Regression to generate a direct buy/avoid signal for each stock.
+
+### Train/Validation/Test Split
+
+The data was split chronologically instead of randomly. This was important because stock prediction is time-based, and random splitting could allow future information to leak into the training process.
+
+Older observations were used for training, while the most recent observations were reserved for validation and testing. This made the evaluation more realistic because the models were tested on future data that was not available during training.
+
+The held-out test period focused on recent market data from 2024–2026, which helped evaluate whether the models could produce useful predictions in a realistic investment setting.
+
+### Model Details
+
+**ARIMA / ARIMAX:** ARIMA was used as a statistical time-series baseline. The single-stock ARIMA model was first applied to AAPL, and then ARIMAX was extended to all 15 stocks. The walk-forward ARIMAX approach used order (1,1,1). At each test step, the model was retrained on all available historical data and forecasted one step ahead. After each forecast, the actual value was added back into the history. This process was computationally expensive but realistic because it simulated what an investor would know at each point in time.
+
+**XGBoost Regression:** XGBoost was implemented as a regression model to predict the 7-day future return for all 15 stocks. The model used engineered features such as lagged returns, moving averages, rolling volatility, RSI, momentum indicators, volume-based features, and market index features. The output of the model was a numeric predicted return for each stock and date.
+
+After predictions were generated, the results were combined into one dataset. For each date, all 15 stocks were ranked from highest predicted return to lowest predicted return. The stock with the highest predicted return was selected as the top-ranked recommendation. This allowed XGBoost to support both return prediction and weekly stock ranking.
+
+**Elastic Net Logistic Regression:** Elastic Net Logistic Regression was implemented as a classification model to predict whether each stock’s 7-day future return would be positive or negative. Unlike XGBoost, which predicted the numeric return, Elastic Net produced a positive or negative class prediction.
+
+Elastic Net was selected because it combines L1 and L2 regularization. This helped reduce overfitting and made the model more stable when working with correlated financial indicators such as lagged returns, moving averages, volatility, RSI, momentum, and volume-based features. The model was evaluated using accuracy, precision, recall, F1 score, and the confusion matrix.
+
+### Important Modeling Decisions and Issues Addressed
+
+Several modeling decisions were made to keep the results reliable and useful:
+
+**ARIMA / ARIMAX decisions:**
+
+- ARIMA was used as a statistical baseline to compare against machine learning models.
+- Walk-forward validation was used to avoid lookahead bias.
+- ARIMAX included exogenous variables such as lagged returns, moving averages, and volatility.
+- The model was retrained at each test step to simulate a realistic forecasting process.
+
+**XGBoost decisions:**
+
+- XGBoost was used as a regression model because its numeric predicted return output could be used directly for stock ranking.
+- The same feature engineering process was applied across all 15 stocks so that stocks could be compared fairly.
+- Predictions were combined into one dataset so that each date could have a full stock ranking.
+- The stock with the highest predicted return was selected as the top-ranked recommendation for portfolio simulation.
+- XGBoost was evaluated using MAE and RMSE to measure prediction error.
+- Predicted returns were also converted into positive or negative directions to calculate directional accuracy, precision, recall, and F1 score.
+
+**Elastic Net Logistic Regression decisions:**
+
+- Elastic Net was used as a classification model because it produced a direct positive/negative return signal.
+- The 7-day future return was converted into a binary target.
+- L1 and L2 regularization were used to reduce overfitting and handle correlated financial indicators.
+- The model was evaluated using accuracy, precision, recall, F1 score, and the confusion matrix.
+- Elastic Net was included because it is simpler and more interpretable than XGBoost, making it useful for explaining buy/avoid decisions.
+
+**General decisions for all models:**
+
+- Chronological splitting was used instead of random splitting to avoid lookahead bias.
+- Models were trained on past data and tested on future observations.
+- Evaluation included both prediction-error metrics and decision-based metrics.
+- Model outputs were saved as CSV files so they could be reused for ranking, portfolio simulation, comparison, and final reporting.
+
+### Supporting Files
+
+| Notebook / File | Purpose |
 |----------|---------|
 | `arima_model-3.ipynb` | ARIMA/ARIMAX on AAPL; walk-forward, backtesting, trading signals |
 | `Arima_For_15_Stocks.ipynb` | ARIMAX applied to all 15 stocks in a loop |
+| `xgboostfinal.ipynb` | XGBoost regression model for predicting 7-day future returns across 15 stocks |
+| `xgboost_predictions_15_stocks.csv` | Combined XGBoost predictions for all 15 stocks |
+| `xgboost_metrics_15_stocks.csv` | XGBoost evaluation metrics for all 15 stocks |
+| `xgboost_top_ranked_portfolio.csv` | Portfolio/ranking output based on the top-ranked XGBoost stock selections |
+| `elastic_net_logistic.ipynb` | Elastic Net Logistic Regression model for positive/negative return classification |
 
 ---
 
