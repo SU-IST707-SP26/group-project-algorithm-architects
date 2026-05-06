@@ -16,6 +16,10 @@ Incorporated professor feedback from the final presentation to improve the LSTM 
 - **(Shivani)** Saved per-stock predictions with class probabilities to `lstm_3class_predictions.csv`.
 - **(Shivani)** Finalized and submitted `submission.ipynb` — complete project report covering all models, stakeholder framing, results, limitations, future work, and supporting notebook index with `work/` paths.
 
+
+- **(Priyanka)** Implemented a multi-stock ARIMAX forecasting and backtesting system using historical stock market data for all 15 stocks. Performed data preprocessing, weekly resampling, and feature engineering using lagged returns and rolling statistics. Built walk-forward ARIMAX models for multiple stocks and generated weekly return predictions. Implemented a ranking-based trading strategy to select top-performing stocks each week. Evaluated strategy performance using cumulative returns, Sharpe ratio, drawdown, and directional accuracy. Created visualizations comparing strategy performance against a benchmark buy-and-hold portfolio.
+
+
 **Results:**
 - All 15 stocks beat the 3-class random baseline of 33%
 - Best performers: TSLA (46.3%), BA (43.6%), NVDA (42.3%)
